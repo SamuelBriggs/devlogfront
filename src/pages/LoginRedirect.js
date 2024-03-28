@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {LoginUser} from "./ApiCall";
 
 const LoginRedirect = () => {
     useEffect(() => {
@@ -8,9 +9,12 @@ const LoginRedirect = () => {
     const getCode = () => {
         const currentUrl = window.location.href;
         const url = new URL(currentUrl);
-        const accessToken =  url.searchParams.get('code')
-        console.log(accessToken)
-        if (accessToken) localStorage.setItem('token', accessToken)
+        const code =  url.searchParams.get('code')
+        console.log(code)
+        if (code) localStorage.setItem('token', code)
+        const response = LoginUser(code)
+        console.log(response)
+
       //  window.location.href = "/dashboard";
     };
 
