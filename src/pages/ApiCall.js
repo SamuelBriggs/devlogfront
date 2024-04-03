@@ -9,7 +9,19 @@ export const LoginUser = async (code) => {
         const response = await axiosInstance.post(
             "http://localhost:8080/getCode", code
         );
-        return response;
+        console.log(response.data + " This is fucking respnse")
+        if (response) localStorage.setItem('token', response.data)
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const getUserId = async (token) => {
+    try {
+        const response = await axiosInstance.post(
+            "http://localhost:8080/user", token
+        );
+        return response.data;
     } catch (error) {
         return error.response;
     }

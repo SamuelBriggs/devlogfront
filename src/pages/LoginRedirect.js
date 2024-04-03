@@ -1,24 +1,32 @@
 import React, {useEffect} from 'react';
-import {LoginUser} from "./ApiCall";
+import {getUserId, LoginUser} from "./ApiCall";
+import async from "async";
 
 const LoginRedirect = () => {
-    useEffect(() => {
-        getCode();
-    }, []); // Empty dependency array ensures the function is called only on mount
+    // useEffect(() => {
+    //     getCode();
+    // }, []); // Empty dependency array ensures the function is called only on mount
 
     const getCode = () => {
         const currentUrl = window.location.href;
         const url = new URL(currentUrl);
         const code =  url.searchParams.get('code')
-        console.log(code)
-        if (code) localStorage.setItem('token', code)
-        const response = LoginUser(code)
-        console.log(response)
+        LoginUser(code)
+        let toks = localStorage.getItem('token')
+        const userResponse = getUserId(toks)
+        console.log(userResponse)
+
+
 
       //  window.location.href = "/dashboard";
     };
 
-    //   return <div>Your Component Content</div>;
+
+       return <div>
+
+           <button onClick={getCode}>click here</button>
+
+       </div>;
 };
 
 export default LoginRedirect;
